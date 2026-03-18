@@ -1,0 +1,29 @@
+project:
+  name: "edge-ai-vision"
+  version: "1.0.0"
+
+dataset:
+  train_images: "data/train/images"
+  train_labels: "data/train/labels"
+  val_images: "data/val/images"
+  val_labels: "data/val/labels"
+  nc: 80 # number of classes (COCO by default)
+  names: [] # dynamically populated
+
+training:
+  epochs: 50
+  batch_size: 16
+  img_size: 640
+  device: "cpu" # Set to 0 if GPU is available
+  weights: "yolov8n.pt" # Nano model for Edge
+
+optimization:
+  export_format: "onnx" # ONNX format for flexibility
+  half: false
+  int8: true
+
+inference:
+  model_path: "runs/detect/train/weights/best.onnx"
+  confidence_threshold: 0.25
+  iou_threshold: 0.45
+  source: "0" # "0" for webcam, or video file path
